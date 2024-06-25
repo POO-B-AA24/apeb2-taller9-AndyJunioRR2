@@ -16,9 +16,9 @@ public class EjecutorTrabajador {
         comisionista.ventasRealizadas(30000.00);
         porHoras.registrarHoras(55);
         
-        fijoMensual.calcularSalario();
-        comisionista.calcularSalario();
-        porHoras.calcularSalario();
+        fijoMensual.setSalario(fijoMensual.calcularSalario());
+        comisionista.setSalario(comisionista.calcularSalario());
+        porHoras.setSalario(porHoras.calcularSalario());
 
         fijoMensual.imprimirNomina();
         comisionista.imprimirNomina();
@@ -44,8 +44,12 @@ class Trabajador {
         this.jefe = jefe;
     }
 
-    public void calcularSalario() {
-        // Implementación en subclases
+    public double calcularSalario() {
+        return 0.0;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
     public void imprimirNomina() {
@@ -65,8 +69,8 @@ class FijoMensual extends Trabajador {
     }
 
     @Override
-    public void calcularSalario() {
-        this.salario = salarioMensual;
+    public double calcularSalario() {
+        return salarioMensual;
     }
 }
 
@@ -85,8 +89,8 @@ class Comisionista extends Trabajador {
     }
 
     @Override
-    public void calcularSalario() {
-        this.salario = ventasRealizadas * (porcentajeComision / 100);
+    public double calcularSalario() {
+        return ventasRealizadas * (porcentajeComision / 100);
     }
 }
 
@@ -107,10 +111,10 @@ class PorHoras extends Trabajador {
     }
 
     @Override
-    public void calcularSalario() {
+    public double calcularSalario() {
         double hNormales = Math.min(40, horasTrabajadas);
         double hExtra = Math.max(0, horasTrabajadas - 40);
-        this.salario = (hNormales * precioHora) + (hExtra * precioHoraExtra);
+        return (hNormales * precioHora) + (hExtra * precioHoraExtra);
     }
 }
 
